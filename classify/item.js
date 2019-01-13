@@ -15,6 +15,8 @@ class Item {
         this.depends = options.depends || [];
         // 任务实际处理的函数
         this.handle = options.handle || function() {};
+        // 任务重置过程中的还原操作函数
+        this.reset = options.reset || function() {};
 
         // 该任务是否已经执行过
         this.executed = false;

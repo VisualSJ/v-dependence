@@ -110,11 +110,12 @@ class Manager {
      * 会将依赖该任务的其他任务也一并重制
      * @param {*} name 
      */
-    reset(name) {
+    async reset(name) {
         const item = this.name2item[name];
         if (!item) {
             return;
         }
+        await item.reset();
         item.executed = false;
 
         const depends = this.depend2item[name] || [];
