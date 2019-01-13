@@ -1,5 +1,7 @@
 # 依赖任务管理器
 
+管理多个任务之间的依赖关系以及运行顺序。
+
 经常会碰到某些任务依赖于另一些任务的情况，任务依赖在异步执行的时候尤为难控制。
 
 所以写了个小工具，控制异步任务流程。
@@ -19,14 +21,27 @@ const vDependence = require('v-dependence');
 
 const depend = vDependence.create();
 
+// 添加一个 a 任务，不带任何的处理函数
 depend.add('a');
+
+// 添加一个 b 任务，依赖 a 任务
 depend.add('b', {
     depends: ['a'],
     handle() {
         // todo something
         depend.finish('b');
     },
+    reset() {
+        // todo something
+    },
 });
 
+// 将 a 任务标记完成
+// a 任务标记完成的时候，会检查依赖 a 的其他任务，这时候会执行 b 任务
 depend.finish('a');
+
+// 将 a 任务的完成标记还原
+// 这时候会将依赖 a 任务的 b 任务一并还原
+depend.reset('a');
+
 ```
