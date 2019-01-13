@@ -1,0 +1,3 @@
+# node 模块
+node_modules/
+**/package-lock.json
